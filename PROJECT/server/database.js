@@ -6,11 +6,14 @@ const dotenv = require('dotenv');
 dotenv.config({path: path.join(__dirname, './utils/.env')}); 
 
 // Change information to fit the database 
-const connection = mysql.createConnection({
+const connection1 = mysql.createConnection({
     host: process.env.DB_HOST, 
     user: process.env.DB_USER, 
     password: process.env.DB_PASSWORD, 
-    database: process.env.DB_NAME 
+    database: process.env.DB_NAME,
+}); 
+
+
 
     /*
 const connection = mysql.createConnection({
@@ -19,10 +22,12 @@ const connection = mysql.createConnection({
     password:   '123', 
     database: 'webusers'
     */
-}); 
+
 
 console.log(process.env.DB_HOST)
 
 // Exports the database 
-module.exports = connection; 
+module.exports = (
+    connection1
+    ); 
 

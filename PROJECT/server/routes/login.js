@@ -20,14 +20,12 @@ function randomizeEmailCode (){
 
     return randomFinalString; 
 }
-let randomEmailCode = randomizeEmailCode(); 
-
-console.log(randomEmailCode); 
+let randomEmailCode = randomizeEmailCode(); // DELETE LATER 
 
 
 
 // get call for debugging 
-/* router.get("/emailTest", (req, res) => {
+router.get("/emailTest", (req, res) => {
     try{ 
         database.execute("SELECT * FROM webusers WHERE u_email = ?",
         [req.body.u_email], 
@@ -40,7 +38,7 @@ console.log(randomEmailCode);
                 // MIGHT HAVE TO MOVE SOMEWHERE ELSE LATER!!!!!!!!!!!!!!!!!!! 
                 // RANDOMLY GENERATE PASSWORD with Math Library (53:00) 
                 let randomCode = randomizeEmailCode(); 
-                console.log(randomCode); 
+                // console.log(randomCode); 
                 sendEmail(result[0].u_email, "Login Verification", "Your one time password is " + randomCode);  
 
 
@@ -52,7 +50,7 @@ console.log(randomEmailCode);
       console.log(error.message); 
     }
 });  
- */
+
 
 
 
@@ -60,6 +58,8 @@ console.log(randomEmailCode);
 
 router.get("/", verifyToken, (req, res) => {
     try{ 
+
+        console.log("We're trying to GET IN LOGIN FILE"); 
         database.execute("SELECT * FROM webusers WHERE id = ?",
         [req.userId], 
         function(err,result){
@@ -67,8 +67,9 @@ router.get("/", verifyToken, (req, res) => {
                 res.status(401).send("Record not found");
             }
             else { 
-                
-                sendEmail(result[0].u_email, "Login Verification", "Your one time password is " + randomEmailCode);  
+                let randomCode = randomizeEmailCode(); 
+                // console.log(randomCode); 
+                sendEmail(result[0].u_email, "Login Verification", "Your one time password is " + randomCode);  
 
 
                 res.status(200).send(result); 
